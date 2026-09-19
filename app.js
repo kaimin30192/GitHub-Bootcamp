@@ -9,6 +9,7 @@ const themeToggle = document.querySelector("#theme-toggle");
 const themeIcon = document.querySelector(".theme-icon");
 const themeLabel = document.querySelector(".theme-label");
 const filterButtons = document.querySelectorAll(".filter-button");
+const clearCompletedButton = document.querySelector("#clear-completed");
 
 let todos = loadTodos();
 let nextTodoId = Date.now();
@@ -84,6 +85,11 @@ function updateFilterState(filteredTodos) {
   emptyMessage.hidden = filteredTodos.length > 0;
 }
 
+// 根據是否存在已完成項目更新清除按鈕狀態。
+function updateClearCompletedButton() {
+  clearCompletedButton.disabled = !todos.some((todo) => todo.completed);
+}
+
 // 根據資料重新建立畫面內容與未完成數量。
 function renderTodos() {
   todoList.replaceChildren();
@@ -120,6 +126,7 @@ function renderTodos() {
   const unfinishedCount = todos.filter((todo) => !todo.completed).length;
   remainingCount.textContent = `未完成:${unfinishedCount} 項`;
   updateFilterState(filteredTodos);
+  updateClearCompletedButton();
 }
 
 themeToggle.addEventListener("click", () => {
@@ -173,6 +180,16 @@ todoList.addEventListener("click", (event) => {
 
   const todoItem = event.target.closest(".todo-item");
   todos = todos.filter((todo) => todo.id !== todoItem.dataset.id);
+  saveTodos();
+  renderTodos();
+});
+
+clearCompletedButton.addEventListener("click", () => {
+  if (!confirm("確定要清除所有已完成的待辦事項嗎？此操作無法復原。")) {
+    return;
+  }
+
+  todos = todos.filter((todo) => !todo.completed);
   saveTodos();
   renderTodos();
 });

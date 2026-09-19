@@ -254,11 +254,36 @@ h1 {
 }
 
 .todo-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   margin-top: 24px;
   padding-top: 18px;
   border-top: 1px solid var(--border-color);
   color: var(--text-secondary);
   font-size: 0.9rem;
+}
+
+.clear-completed-button {
+  padding: 6px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--danger-color);
+  background: transparent;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.clear-completed-button:hover:not(:disabled) {
+  border-color: var(--danger-color);
+  background: var(--danger-hover-background);
+}
+
+.clear-completed-button:disabled {
+  color: var(--text-secondary);
+  cursor: not-allowed;
+  opacity: 0.55;
 }
 
 .sr-only {
