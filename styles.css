@@ -1,17 +1,58 @@
 :root {
   --page-background: #eef3f7;
   --card-background: #ffffff;
+  --card-border: rgba(220, 229, 235, 0.9);
+  --input-background: #fbfcfd;
   --text-primary: #203040;
   --text-secondary: #71808d;
   --border-color: #dce5eb;
   --accent-color: #347d8d;
   --accent-hover: #286875;
+  --button-text: #ffffff;
   --danger-color: #b65d62;
+  --danger-hover-background: #fff1f1;
   --shadow-color: rgba(37, 62, 80, 0.12);
+  --focus-ring: rgba(52, 125, 141, 0.14);
+}
+
+body[data-theme="dark"] {
+  --page-background: #17232b;
+  --card-background: #24343e;
+  --card-border: #40535d;
+  --input-background: #1d2b33;
+  --text-primary: #edf4f5;
+  --text-secondary: #a9bcc1;
+  --border-color: #40535d;
+  --accent-color: #72c0c6;
+  --accent-hover: #91d2d5;
+  --button-text: #17232b;
+  --danger-color: #f09a9a;
+  --danger-hover-background: #4a3034;
+  --shadow-color: rgba(0, 0, 0, 0.28);
+  --focus-ring: rgba(114, 192, 198, 0.2);
 }
 
 * {
   box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  body:not([data-theme]) {
+    --page-background: #17232b;
+    --card-background: #24343e;
+    --card-border: #40535d;
+    --input-background: #1d2b33;
+    --text-primary: #edf4f5;
+    --text-secondary: #a9bcc1;
+    --border-color: #40535d;
+    --accent-color: #72c0c6;
+    --accent-hover: #91d2d5;
+    --button-text: #17232b;
+    --danger-color: #f09a9a;
+    --danger-hover-background: #4a3034;
+    --shadow-color: rgba(0, 0, 0, 0.28);
+    --focus-ring: rgba(114, 192, 198, 0.2);
+  }
 }
 
 body {
@@ -35,13 +76,20 @@ input {
   width: min(100%, 520px);
   padding: 36px;
   background: var(--card-background);
-  border: 1px solid rgba(220, 229, 235, 0.9);
+  border: 1px solid var(--card-border);
   border-radius: 18px;
   box-shadow: 0 18px 42px var(--shadow-color);
 }
 
 .todo-header {
   margin-bottom: 28px;
+}
+
+.title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 .eyebrow {
@@ -64,6 +112,24 @@ h1 {
   line-height: 1.6;
 }
 
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  padding: 8px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  background: var(--input-background);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-color);
+}
+
 .todo-form {
   display: flex;
   gap: 10px;
@@ -77,24 +143,47 @@ h1 {
   border: 1px solid var(--border-color);
   border-radius: 10px;
   color: var(--text-primary);
-  background: #fbfcfd;
+  background: var(--input-background);
   outline: none;
 }
 
 .todo-form input:focus {
   border-color: var(--accent-color);
-  box-shadow: 0 0 0 3px rgba(52, 125, 141, 0.14);
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 .todo-form button {
   padding: 0 20px;
   border: 0;
   border-radius: 10px;
-  color: #ffffff;
+  color: var(--button-text);
   background: var(--accent-color);
   font-weight: 700;
   cursor: pointer;
   transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.filter-button {
+  padding: 7px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  background: transparent;
+  cursor: pointer;
+}
+
+.filter-button:hover,
+.filter-button.active {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  background: var(--input-background);
+  font-weight: 700;
 }
 
 .todo-form button:hover {
@@ -121,7 +210,7 @@ h1 {
   padding: 9px 10px 9px 14px;
   border: 1px solid var(--border-color);
   border-radius: 10px;
-  background: #fbfcfd;
+  background: var(--input-background);
 }
 
 .todo-item input[type="checkbox"] {
@@ -155,7 +244,7 @@ h1 {
 }
 
 .delete-button:hover {
-  background: #fff1f1;
+  background: var(--danger-hover-background);
 }
 
 .empty-message {
@@ -197,5 +286,14 @@ h1 {
 
   .todo-form button {
     padding: 0 16px;
+  }
+
+  .title-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .theme-toggle {
+    align-self: flex-start;
   }
 }
