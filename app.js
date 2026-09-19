@@ -77,8 +77,8 @@ function updateFilterState(filteredTodos) {
 
   const emptyMessages = {
     all: "還沒有任何待辦事項,新增一個吧!",
-    active: "目前沒有未完成的待辦事項。",
-    completed: "目前沒有已完成的待辦事項。",
+    active: "目前沒有符合「未完成」篩選的待辦事項，其他項目仍可在「全部」中查看。",
+    completed: "目前沒有符合「已完成」篩選的待辦事項，其他項目仍可在「全部」中查看。",
   };
   emptyMessage.textContent = emptyMessages[currentFilter];
   emptyMessage.hidden = filteredTodos.length > 0;
